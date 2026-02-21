@@ -48,14 +48,14 @@ interface AnalysisResult {
 
 function RiskBadge({ level }: { level: string }) {
   const styles: Record<string, string> = {
-    critical: "bg-danger/10 text-danger border-danger/20",
-    high: "bg-danger/10 text-danger border-danger/20",
-    medium: "bg-warning/10 text-warning border-warning/20",
-    low: "bg-success/10 text-success border-success/20",
+    critical: "bg-red-50 text-danger border-red-200",
+    high: "bg-red-50 text-danger border-red-200",
+    medium: "bg-amber-50 text-warning border-amber-200",
+    low: "bg-green-50 text-success border-green-200",
   };
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${
         styles[level] ?? styles.medium
       }`}
     >
@@ -120,7 +120,7 @@ export default function AnalyzePage() {
   return (
     <div className="space-y-8 animate-in">
       <div>
-        <h1 className="text-2xl font-bold">Analyze</h1>
+        <h1 className="text-2xl font-semibold">Analyze</h1>
         <p className="text-text-secondary text-sm mt-1">
           Pre-sign simulation and risk analysis
         </p>
@@ -136,10 +136,10 @@ export default function AnalyzePage() {
               setResult(null);
               setError("");
             }}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               mode === m
-                ? "bg-primary/10 text-primary"
-                : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                ? "bg-surface-2 text-text-primary"
+                : "text-text-secondary hover:text-text-primary hover:bg-surface"
             }`}
           >
             {m === "transaction" ? "Transaction" : "Contract"}
@@ -148,7 +148,7 @@ export default function AnalyzePage() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleAnalyze} className="glass-card rounded-2xl p-6 space-y-4">
+      <form onSubmit={handleAnalyze} className="bg-white border border-border rounded-xl p-6 space-y-4 shadow-sm">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-2">
@@ -165,7 +165,7 @@ export default function AnalyzePage() {
                     : "0x… contract address"
                 }
                 required
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
+                className="w-full pl-11 pr-4 py-3 rounded-lg bg-white border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all"
               />
             </div>
           </div>
@@ -177,7 +177,7 @@ export default function AnalyzePage() {
               <select
                 value={chain}
                 onChange={(e) => setChain(e.target.value)}
-                className="appearance-none w-full md:w-40 px-4 py-3 rounded-xl bg-background border border-border text-text-primary focus:outline-none focus:border-primary transition-colors pr-10"
+                className="appearance-none w-full md:w-40 px-4 py-3 rounded-lg bg-white border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all pr-10"
               >
                 {CHAINS.map((c) => (
                   <option key={c.value} value={c.value}>
@@ -200,7 +200,7 @@ export default function AnalyzePage() {
                 value={to}
                 onChange={(e) => setTo(e.target.value)}
                 placeholder="0x… recipient"
-                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all"
               />
             </div>
             <div>
@@ -211,7 +211,7 @@ export default function AnalyzePage() {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder="0.0"
-                className="w-full px-4 py-3 rounded-xl bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all"
               />
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function AnalyzePage() {
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-brand text-white font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-text-primary text-white font-medium hover:bg-primary-light transition-colors disabled:opacity-50"
         >
           {loading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -234,7 +234,7 @@ export default function AnalyzePage() {
 
       {/* Error */}
       {error && (
-        <div className="p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm">
+        <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-danger text-sm">
           {error}
         </div>
       )}
@@ -242,10 +242,10 @@ export default function AnalyzePage() {
       {/* Results */}
       {result && (
         <div className="space-y-4">
-          <div className="glass-card rounded-2xl p-6">
+          <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-lg font-semibold">Analysis Result</h2>
+                <h2 className="text-lg font-medium">Analysis Result</h2>
                 <p className="text-sm text-text-secondary mt-0.5">
                   {mode === "transaction" ? "Transaction simulation" : "Contract analysis"} complete
                 </p>
@@ -255,7 +255,7 @@ export default function AnalyzePage() {
 
             {/* Scores */}
             <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="p-4 rounded-xl bg-background">
+              <div className="p-4 rounded-lg bg-surface">
                 <p className="text-sm text-text-secondary">Risk Score</p>
                 <p className={`text-2xl font-bold ${
                   result.risk_score >= 70
@@ -268,7 +268,7 @@ export default function AnalyzePage() {
                   <span className="text-sm text-text-muted font-normal">/100</span>
                 </p>
               </div>
-              <div className="p-4 rounded-xl bg-background">
+              <div className="p-4 rounded-lg bg-surface">
                 <p className="text-sm text-text-secondary">Trust Score</p>
                 <p className={`text-2xl font-bold ${
                   (result.trust_score ?? 0) >= 70
@@ -285,7 +285,7 @@ export default function AnalyzePage() {
 
             {/* Function info */}
             {result.function_name && (
-              <div className="p-4 rounded-xl bg-background mb-4">
+              <div className="p-4 rounded-lg bg-surface mb-4">
                 <p className="text-sm text-text-secondary">Function</p>
                 <p className="font-mono text-sm text-text-primary mt-1">
                   {result.function_name}
@@ -295,7 +295,7 @@ export default function AnalyzePage() {
 
             {/* Simulation */}
             {result.simulation && (
-              <div className="p-4 rounded-xl bg-background mb-4">
+              <div className="p-4 rounded-lg bg-surface mb-4">
                 <p className="text-sm text-text-secondary mb-2">Simulation</p>
                 <div className="flex items-center gap-3">
                   {result.simulation.success ? (
@@ -319,12 +319,12 @@ export default function AnalyzePage() {
                 {result.warnings.map((w, i) => (
                   <div
                     key={i}
-                    className={`flex items-start gap-3 p-3 rounded-xl text-sm ${
+                    className={`flex items-start gap-3 p-3 rounded-lg text-sm ${
                       w.level === "high" || w.level === "critical"
-                        ? "bg-danger/10 text-danger"
+                        ? "bg-red-50 text-danger"
                         : w.level === "medium"
-                        ? "bg-warning/10 text-warning"
-                        : "bg-primary/10 text-primary"
+                        ? "bg-amber-50 text-warning"
+                        : "bg-blue-50 text-accent"
                     }`}
                   >
                     <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
@@ -336,10 +336,10 @@ export default function AnalyzePage() {
 
             {/* AI Explanation */}
             {result.ai_explanation && (
-              <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
+              <div className="p-4 rounded-lg bg-blue-50 border border-blue-100">
                 <div className="flex items-center gap-2 mb-2">
-                  <Info className="w-4 h-4 text-primary" />
-                  <p className="text-sm font-medium text-primary">AI Analysis</p>
+                  <Info className="w-4 h-4 text-accent" />
+                  <p className="text-sm font-medium text-accent">AI Analysis</p>
                 </div>
                 <p className="text-sm text-text-secondary leading-relaxed">
                   {result.ai_explanation}

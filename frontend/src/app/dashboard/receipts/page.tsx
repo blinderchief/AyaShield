@@ -77,7 +77,7 @@ export default function ReceiptsPage() {
   return (
     <div className="space-y-8 animate-in">
       <div>
-        <h1 className="text-2xl font-bold">Smart Receipts</h1>
+        <h1 className="text-2xl font-semibold">Smart Receipts</h1>
         <p className="text-text-secondary text-sm mt-1">
           Generate beautiful, shareable receipts for any transaction
         </p>
@@ -86,7 +86,7 @@ export default function ReceiptsPage() {
       {/* Generator form */}
       <form
         onSubmit={handleGenerate}
-        className="glass-card rounded-2xl p-6 space-y-4"
+        className="bg-white border border-border rounded-xl p-6 space-y-4 shadow-sm"
       >
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
           <div>
@@ -100,7 +100,7 @@ export default function ReceiptsPage() {
                 onChange={(e) => setTxHash(e.target.value)}
                 placeholder="0x… transaction hash"
                 required
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
+                className="w-full pl-11 pr-4 py-3 rounded-lg bg-white border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all"
               />
             </div>
           </div>
@@ -112,7 +112,7 @@ export default function ReceiptsPage() {
               <select
                 value={chain}
                 onChange={(e) => setChain(e.target.value)}
-                className="appearance-none w-full md:w-40 px-4 py-3 rounded-xl bg-background border border-border text-text-primary focus:outline-none focus:border-primary transition-colors pr-10"
+                className="appearance-none w-full md:w-40 px-4 py-3 rounded-lg bg-white border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all pr-10"
               >
                 {CHAINS.map((c) => (
                   <option key={c.value} value={c.value}>
@@ -128,7 +128,7 @@ export default function ReceiptsPage() {
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-brand text-white font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-text-primary text-white font-medium hover:bg-primary-light transition-colors disabled:opacity-50"
         >
           {loading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -142,7 +142,7 @@ export default function ReceiptsPage() {
       </form>
 
       {error && (
-        <div className="p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm">
+        <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-danger text-sm">
           {error}
         </div>
       )}
@@ -151,20 +151,20 @@ export default function ReceiptsPage() {
       {receipt && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* SVG preview */}
-          <div className="glass-card rounded-2xl p-6">
-            <h2 className="text-lg font-semibold mb-4">Receipt Card</h2>
+          <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-medium mb-4">Receipt Card</h2>
             <div
-              className="rounded-xl overflow-hidden bg-background"
+              className="rounded-lg overflow-hidden bg-surface"
               dangerouslySetInnerHTML={{ __html: receipt.svg_card }}
             />
             <div className="flex gap-3 mt-4">
               <button
                 onClick={handleDownload}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-surface text-text-primary text-sm font-medium hover:bg-surface-2 transition-colors"
               >
                 <Download className="w-4 h-4" /> Download SVG
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-accent/10 text-accent text-sm font-medium hover:bg-accent/20 transition-colors">
+              <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-surface text-text-primary text-sm font-medium hover:bg-surface-2 transition-colors">
                 <Share2 className="w-4 h-4" /> Share
               </button>
             </div>
@@ -172,8 +172,8 @@ export default function ReceiptsPage() {
 
           {/* Details */}
           <div className="space-y-4">
-            <div className="glass-card rounded-2xl p-6">
-              <h2 className="text-lg font-semibold mb-4">Details</h2>
+            <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
+              <h2 className="text-lg font-medium mb-4">Details</h2>
               <dl className="space-y-3">
                 <div>
                   <dt className="text-xs text-text-muted">Transaction</dt>
@@ -197,8 +197,8 @@ export default function ReceiptsPage() {
             </div>
 
             {receipt.cost_breakdown && (
-              <div className="glass-card rounded-2xl p-6">
-                <h2 className="text-lg font-semibold mb-4">Cost Breakdown</h2>
+              <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
+                <h2 className="text-lg font-medium mb-4">Cost Breakdown</h2>
                 <dl className="space-y-3">
                   <div className="flex justify-between">
                     <dt className="text-sm text-text-secondary">Gas Fee</dt>
@@ -234,8 +234,8 @@ export default function ReceiptsPage() {
             )}
 
             {receipt.events.length > 0 && (
-              <div className="glass-card rounded-2xl p-6">
-                <h2 className="text-lg font-semibold mb-4">Events</h2>
+              <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
+                <h2 className="text-lg font-medium mb-4">Events</h2>
                 <div className="space-y-2">
                   {receipt.events.map((evt, i) => (
                     <div

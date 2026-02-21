@@ -21,74 +21,49 @@ const legal = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-surface/50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+    <footer className="border-t border-border">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-brand flex items-center justify-center overflow-hidden">
+              <div className="w-8 h-8 rounded-lg bg-text-primary flex items-center justify-center overflow-hidden">
                 <Image src="/favicon.svg" alt="Aya Shield" width={32} height={32} />
               </div>
-              <span className="font-bold text-text-primary">Aya Shield</span>
+              <span className="font-semibold text-text-primary">Aya Shield</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed max-w-xs">
               AI-powered transaction firewall for the multi-chain era.
             </p>
           </div>
 
-          {/* Product */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
-              Product
-            </h4>
+            <h4 className="text-sm font-medium text-text-primary mb-4">Product</h4>
             <ul className="space-y-2.5">
               {product.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
-                    {l.label}
-                  </a>
+                  <a href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
-              Company
-            </h4>
+            <h4 className="text-sm font-medium text-text-primary mb-4">Company</h4>
             <ul className="space-y-2.5">
               {company.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
-                    {l.label}
-                  </a>
+                  <a href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold text-text-primary mb-4">
-              Legal
-            </h4>
+            <h4 className="text-sm font-medium text-text-primary mb-4">Legal</h4>
             <ul className="space-y-2.5">
               {legal.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
-                    {l.label}
-                  </a>
+                  <a href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
                 </li>
               ))}
             </ul>

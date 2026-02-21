@@ -45,11 +45,11 @@ export default function DashboardLayout({
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 h-16 border-b border-border shrink-0">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-brand flex items-center justify-center shrink-0 overflow-hidden">
+          <div className="w-9 h-9 rounded-lg bg-text-primary flex items-center justify-center shrink-0 overflow-hidden">
             <Image src="/favicon.svg" alt="Aya Shield" width={36} height={36} />
           </div>
           {!collapsed && (
-            <span className="font-bold text-text-primary">Aya Shield</span>
+            <span className="font-semibold text-text-primary">Aya Shield</span>
           )}
         </Link>
       </div>
@@ -66,10 +66,10 @@ export default function DashboardLayout({
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 active
-                  ? "bg-primary/10 text-primary"
-                  : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                  ? "bg-surface-2 text-text-primary"
+                  : "text-text-secondary hover:text-text-primary hover:bg-surface"
               }`}
             >
               <Icon className="w-5 h-5 shrink-0" />
@@ -83,7 +83,7 @@ export default function DashboardLayout({
       <div className="px-2 py-4 border-t border-border space-y-1">
         <button
           onClick={() => setCollapsed((c) => !c)}
-          className="hidden lg:flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors w-full"
+          className="hidden lg:flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-text-secondary hover:text-text-primary hover:bg-surface transition-colors w-full"
         >
           {collapsed ? (
             <ChevronRight className="w-5 h-5 shrink-0" />
@@ -95,7 +95,7 @@ export default function DashboardLayout({
         </button>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-text-secondary hover:text-danger hover:bg-danger/5 transition-colors w-full"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-text-secondary hover:text-danger hover:bg-red-50 transition-colors w-full"
         >
           <LogOut className="w-5 h-5 shrink-0" />
           {!collapsed && "Sign out"}
@@ -105,14 +105,14 @@ export default function DashboardLayout({
   );
 
   return (
-    <div className="min-h-screen flex bg-background">
+    <div className="min-h-screen flex bg-surface">
       {/* Mobile header */}
-      <div className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-surface border-b border-border flex items-center justify-between px-4">
+      <div className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-white border-b border-border flex items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-brand flex items-center justify-center overflow-hidden">
+          <div className="w-8 h-8 rounded-lg bg-text-primary flex items-center justify-center overflow-hidden">
             <Image src="/favicon.svg" alt="Aya Shield" width={32} height={32} />
           </div>
-          <span className="font-bold text-text-primary text-sm">Aya Shield</span>
+          <span className="font-semibold text-text-primary text-sm">Aya Shield</span>
         </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -126,14 +126,14 @@ export default function DashboardLayout({
       {/* Mobile drawer overlay */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-30 bg-black/50"
+          className="lg:hidden fixed inset-0 z-30 bg-black/20"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Mobile drawer */}
       <aside
-        className={`lg:hidden fixed top-14 left-0 bottom-0 z-30 w-60 bg-surface border-r border-border flex flex-col transition-transform duration-200 ${
+        className={`lg:hidden fixed top-14 left-0 bottom-0 z-30 w-60 bg-white border-r border-border flex flex-col transition-transform duration-200 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -142,7 +142,7 @@ export default function DashboardLayout({
 
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex sticky top-0 h-screen flex-col border-r border-border bg-surface transition-all duration-200 ${
+        className={`hidden lg:flex sticky top-0 h-screen flex-col border-r border-border bg-white transition-all duration-200 ${
           collapsed ? "w-[72px]" : "w-60"
         }`}
       >
@@ -151,7 +151,7 @@ export default function DashboardLayout({
 
       {/* Main content */}
       <main className="flex-1 min-w-0 pt-14 lg:pt-0">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">{children}</div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">{children}</div>
       </main>
     </div>
   );

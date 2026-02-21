@@ -23,48 +23,28 @@
   }
 
   ::selection {
-    @apply bg-primary/30 text-white;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-background;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-border-light;
+    @apply bg-accent/20 text-text-primary;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-surface/80 backdrop-blur-xl border border-border rounded-2xl;
+    @apply bg-white border border-border rounded-2xl shadow-sm;
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
-  }
-
-  .gradient-border {
-    @apply border border-transparent;
-    background: linear-gradient(#0C1222, #0C1222) padding-box,
-                linear-gradient(135deg, #3B82F6, #06B6D4) border-box;
+    @apply text-text-primary;
   }
 
   .animate-in {
-    animation: animateIn 0.5s ease-out forwards;
+    animation: animateIn 0.4s ease-out forwards;
   }
 }
 
 @keyframes animateIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;

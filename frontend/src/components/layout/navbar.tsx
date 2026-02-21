@@ -23,20 +23,18 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-200 ${
-        scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border" : ""
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-200 ${
+        scrolled ? "bg-white/80 backdrop-blur-lg border-b border-border" : ""
       }`}
     >
-      <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
-        {/* Logo */}
+      <nav className="max-w-5xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-brand flex items-center justify-center overflow-hidden">
+          <div className="w-8 h-8 rounded-lg bg-text-primary flex items-center justify-center overflow-hidden">
             <Image src="/favicon.svg" alt="Aya Shield" width={32} height={32} />
           </div>
-          <span className="font-bold text-text-primary">Aya Shield</span>
+          <span className="font-semibold text-text-primary">Aya Shield</span>
         </Link>
 
-        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <a
@@ -49,7 +47,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/auth/login"
@@ -59,13 +56,12 @@ export default function Navbar() {
           </Link>
           <Link
             href="/auth/signup"
-            className="text-sm font-semibold bg-gradient-brand text-white px-5 py-2 rounded-xl hover:opacity-90 transition-opacity"
+            className="text-sm font-medium bg-text-primary text-white px-5 py-2 rounded-lg hover:bg-primary-light transition-colors"
           >
             Get Started
           </Link>
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
           className="md:hidden p-2 text-text-secondary"
@@ -75,9 +71,8 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-surface border-t border-border px-4 sm:px-6 pb-6 pt-2 space-y-4">
+        <div className="md:hidden bg-white border-t border-border px-4 sm:px-6 pb-6 pt-2 space-y-4">
           {links.map((l) => (
             <a
               key={l.href}
@@ -97,7 +92,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/auth/signup"
-              className="text-sm font-semibold bg-gradient-brand text-white text-center px-5 py-2.5 rounded-xl"
+              className="text-sm font-medium bg-text-primary text-white text-center px-5 py-2.5 rounded-lg"
             >
               Get Started
             </Link>

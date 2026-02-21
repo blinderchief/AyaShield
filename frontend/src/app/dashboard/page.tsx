@@ -37,7 +37,7 @@ function StatCard({
   return (
     <Link
       href={href}
-      className="group glass-card p-5 rounded-2xl hover:border-primary/30 transition-all"
+      className="group bg-white border border-border p-5 rounded-xl hover:border-border-light transition-all shadow-sm"
     >
       <div className="flex items-start justify-between mb-4">
         <div
@@ -45,7 +45,7 @@ function StatCard({
         >
           <Icon className="w-5 h-5" />
         </div>
-        <ArrowUpRight className="w-4 h-4 text-text-muted group-hover:text-primary transition-colors" />
+        <ArrowUpRight className="w-4 h-4 text-text-muted group-hover:text-text-primary transition-colors" />
       </div>
       <p className="text-2xl font-bold text-text-primary">{value}</p>
       <div className="flex items-center justify-between mt-1">
@@ -85,11 +85,11 @@ function RecentActivity({ events }: { events: RecentEvent[] }) {
 
   if (events.length === 0) {
     return (
-      <div className="glass-card rounded-2xl p-8 text-center">
+      <div className="bg-white border border-border rounded-xl p-8 text-center shadow-sm">
         <Activity className="w-10 h-10 text-text-muted mx-auto mb-3" />
         <p className="text-text-secondary text-sm">
           No activity yet.{" "}
-          <Link href="/dashboard/analyze" className="text-primary font-medium">
+          <Link href="/dashboard/analyze" className="text-text-primary underline underline-offset-2 font-medium">
             Analyze your first transaction
           </Link>
         </p>
@@ -98,11 +98,11 @@ function RecentActivity({ events }: { events: RecentEvent[] }) {
   }
 
   return (
-    <div className="glass-card rounded-2xl divide-y divide-border">
+    <div className="bg-white border border-border rounded-xl divide-y divide-border shadow-sm">
       {events.map((event) => (
         <div
           key={event.id}
-          className="flex items-center justify-between p-4 first:rounded-t-2xl last:rounded-b-2xl"
+          className="flex items-center justify-between p-4 first:rounded-t-xl last:rounded-b-xl"
         >
           <div className="min-w-0">
             <p className="font-medium text-text-primary text-sm">
@@ -161,7 +161,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 animate-in">
       <div>
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-semibold">Dashboard</h1>
         <p className="text-text-secondary text-sm mt-1">
           Your security overview at a glance
         </p>
@@ -204,9 +204,9 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link
           href="/dashboard/analyze"
-          className="glass-card rounded-2xl p-5 hover:border-primary/30 transition-all group"
+          className="bg-white border border-border rounded-xl p-5 hover:border-border-light transition-all group shadow-sm"
         >
-          <h3 className="font-semibold text-text-primary group-hover:text-primary transition-colors">
+          <h3 className="font-medium text-text-primary group-hover:text-text-primary transition-colors">
             Analyze Transaction
           </h3>
           <p className="text-sm text-text-secondary mt-1">
@@ -215,9 +215,9 @@ export default function DashboardPage() {
         </Link>
         <Link
           href="/dashboard/receipts"
-          className="glass-card rounded-2xl p-5 hover:border-accent/30 transition-all group"
+          className="bg-white border border-border rounded-xl p-5 hover:border-border-light transition-all group shadow-sm"
         >
-          <h3 className="font-semibold text-text-primary group-hover:text-accent transition-colors">
+          <h3 className="font-medium text-text-primary group-hover:text-text-primary transition-colors">
             Generate Receipt
           </h3>
           <p className="text-sm text-text-secondary mt-1">
@@ -226,9 +226,9 @@ export default function DashboardPage() {
         </Link>
         <Link
           href="/dashboard/panic"
-          className="glass-card rounded-2xl p-5 hover:border-danger/30 transition-all group"
+          className="bg-white border border-border rounded-xl p-5 hover:border-border-light transition-all group shadow-sm"
         >
-          <h3 className="font-semibold text-text-primary group-hover:text-danger transition-colors">
+          <h3 className="font-medium text-text-primary group-hover:text-text-primary transition-colors">
             Panic Revoke
           </h3>
           <p className="text-sm text-text-secondary mt-1">
@@ -239,7 +239,7 @@ export default function DashboardPage() {
 
       {/* Recent activity */}
       <div>
-        <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
+        <h2 className="text-lg font-medium mb-4">Recent Activity</h2>
         <RecentActivity events={events} />
       </div>
     </div>

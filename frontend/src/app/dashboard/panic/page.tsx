@@ -45,9 +45,9 @@ interface RevokeResult {
 }
 
 function riskColors(score: number) {
-  if (score >= 70) return "text-danger bg-danger/10";
-  if (score >= 40) return "text-warning bg-warning/10";
-  return "text-success bg-success/10";
+  if (score >= 70) return "text-danger bg-red-50";
+  if (score >= 40) return "text-warning bg-amber-50";
+  return "text-success bg-green-50";
 }
 
 export default function PanicPage() {
@@ -89,7 +89,7 @@ export default function PanicPage() {
   return (
     <div className="space-y-8 animate-in">
       <div>
-        <h1 className="text-2xl font-bold flex items-center gap-2">
+        <h1 className="text-2xl font-semibold flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-danger" />
           Emergency Revoke
         </h1>
@@ -101,7 +101,7 @@ export default function PanicPage() {
       {/* Scan form */}
       <form
         onSubmit={handleScan}
-        className="glass-card rounded-2xl p-6 border-danger/10"
+        className="bg-white border border-border rounded-xl p-6 shadow-sm"
       >
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 items-end">
           <div>
@@ -115,7 +115,7 @@ export default function PanicPage() {
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="0x… your wallet address"
                 required
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-background border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
+                className="w-full pl-11 pr-4 py-3 rounded-lg bg-white border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all"
               />
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function PanicPage() {
               <select
                 value={chain}
                 onChange={(e) => setChain(e.target.value)}
-                className="appearance-none w-full md:w-40 px-4 py-3 rounded-xl bg-background border border-border text-text-primary focus:outline-none focus:border-primary transition-colors pr-10"
+                className="appearance-none w-full md:w-40 px-4 py-3 rounded-lg bg-white border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-text-primary/10 focus:border-text-primary transition-all pr-10"
               >
                 {CHAINS.map((c) => (
                   <option key={c.value} value={c.value}>
@@ -141,7 +141,7 @@ export default function PanicPage() {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-danger text-white font-semibold hover:bg-danger/90 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-danger text-white font-medium hover:bg-danger/90 transition-colors disabled:opacity-50"
           >
             {loading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -155,7 +155,7 @@ export default function PanicPage() {
       </form>
 
       {error && (
-        <div className="p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm">
+        <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-danger text-sm">
           {error}
         </div>
       )}
@@ -165,24 +165,24 @@ export default function PanicPage() {
         <div className="space-y-6">
           {/* Summary */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="glass-card rounded-2xl p-5 text-center">
-              <p className="text-3xl font-bold text-text-primary">
+            <div className="bg-white border border-border rounded-xl p-5 text-center shadow-sm">
+              <p className="text-3xl font-semibold text-text-primary">
                 {result.total_approvals}
               </p>
               <p className="text-sm text-text-secondary mt-1">
                 Approvals Found
               </p>
             </div>
-            <div className="glass-card rounded-2xl p-5 text-center border-danger/20">
-              <p className="text-3xl font-bold text-danger">
+            <div className="bg-white border border-border rounded-xl p-5 text-center shadow-sm">
+              <p className="text-3xl font-semibold text-danger">
                 {result.risky_approvals}
               </p>
               <p className="text-sm text-text-secondary mt-1">
                 High Risk
               </p>
             </div>
-            <div className="glass-card rounded-2xl p-5 text-center">
-              <p className="text-3xl font-bold text-success">
+            <div className="bg-white border border-border rounded-xl p-5 text-center shadow-sm">
+              <p className="text-3xl font-semibold text-success">
                 {revokedIndexes.size}
               </p>
               <p className="text-sm text-text-secondary mt-1">
@@ -193,9 +193,9 @@ export default function PanicPage() {
 
           {/* Approvals table */}
           {result.approvals.length > 0 && (
-            <div className="glass-card rounded-2xl overflow-hidden">
+            <div className="bg-white border border-border rounded-xl overflow-hidden shadow-sm">
               <div className="px-6 py-4 border-b border-border">
-                <h2 className="font-semibold">Approvals</h2>
+                <h2 className="font-medium">Approvals</h2>
               </div>
               <div className="divide-y divide-border">
                 {result.approvals.map((approval, idx) => {
@@ -235,7 +235,7 @@ export default function PanicPage() {
                         ) : (
                           <button
                             onClick={() => markRevoked(idx)}
-                            className="text-xs font-medium text-danger hover:bg-danger/10 px-3 py-1.5 rounded-lg transition-colors"
+                            className="text-xs font-medium text-danger hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors"
                           >
                             Revoke
                           </button>
@@ -250,8 +250,8 @@ export default function PanicPage() {
 
           {/* Revoke transactions (raw calldata for wallet) */}
           {result.revoke_txs.length > 0 && (
-            <div className="glass-card rounded-2xl p-6">
-              <h2 className="font-semibold mb-4">
+            <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
+              <h2 className="font-medium mb-4">
                 Revoke Transactions ({result.revoke_txs.length})
               </h2>
               <p className="text-sm text-text-secondary mb-4">
@@ -261,7 +261,7 @@ export default function PanicPage() {
                 {result.revoke_txs.map((tx, i) => (
                   <div
                     key={i}
-                    className="p-4 rounded-xl bg-background text-sm space-y-1"
+                    className="p-4 rounded-lg bg-surface text-sm space-y-1"
                   >
                     <p className="text-text-primary font-medium">
                       {tx.description}
@@ -279,9 +279,9 @@ export default function PanicPage() {
           )}
 
           {result.approvals.length === 0 && (
-            <div className="glass-card rounded-2xl p-8 text-center">
+            <div className="bg-white border border-border rounded-xl p-8 text-center shadow-sm">
               <CheckCircle className="w-12 h-12 text-success mx-auto mb-3" />
-              <h2 className="text-lg font-semibold">All Clear!</h2>
+              <h2 className="text-lg font-medium">All Clear!</h2>
               <p className="text-text-secondary text-sm mt-1">
                 No risky approvals found for this wallet.
               </p>
