@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Github } from "lucide-react";
 
 const links = [
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How It Works" },
-  { href: "#problem", label: "Why Aya Shield" },
+  { href: "https://github.com/blinderchief/AyaShield", label: "GitHub", external: true },
 ];
 
 export default function Navbar() {
@@ -23,31 +23,43 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-200 ${
-        scrolled ? "bg-white/80 backdrop-blur-lg border-b border-border" : ""
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/90 backdrop-blur-xl shadow-nav" : ""
       }`}
     >
-      <nav className="max-w-5xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
+      <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-text-primary flex items-center justify-center overflow-hidden">
             <Image src="/favicon.svg" alt="Aya Shield" width={32} height={32} />
           </div>
-          <span className="font-semibold text-text-primary">Aya Shield</span>
+          <span className="font-semibold text-text-primary tracking-tight">Aya Shield</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) =>
+            l.external ? (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1.5"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+              >
+                {l.label}
+              </a>
+            )
+          )}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
           <Link
             href="/auth/login"
             className="text-sm text-text-secondary hover:text-text-primary transition-colors px-4 py-2"
@@ -56,7 +68,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/auth/signup"
-            className="text-sm font-medium bg-text-primary text-white px-5 py-2 rounded-lg hover:bg-primary-light transition-colors"
+            className="text-sm font-medium bg-text-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary-light transition-all duration-200"
           >
             Get Started
           </Link>
@@ -64,7 +76,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-text-secondary"
+          className="md:hidden p-2 text-text-secondary hover:text-text-primary transition-colors"
           aria-label="Toggle navigation"
         >
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -72,17 +84,30 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="md:hidden bg-white border-t border-border px-4 sm:px-6 pb-6 pt-2 space-y-4">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block text-sm text-text-secondary hover:text-text-primary py-2"
-            >
-              {l.label}
-            </a>
-          ))}
+        <div className="md:hidden bg-white border-t border-border px-4 sm:px-6 pb-6 pt-2 space-y-4 animate-fade-in">
+          {links.map((l) =>
+            l.external ? (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="block text-sm text-text-secondary hover:text-text-primary py-2"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block text-sm text-text-secondary hover:text-text-primary py-2"
+              >
+                {l.label}
+              </a>
+            )
+          )}
           <div className="flex flex-col gap-2 pt-2 border-t border-border">
             <Link
               href="/auth/login"

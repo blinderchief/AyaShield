@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Shield, Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
+import { Shield, Mail, Lock, User, ArrowRight, Loader2, CheckCircle } from "lucide-react";
 import { createBrowserClient } from "@/lib/supabase/client";
 
 export default function SignUpPage() {
@@ -13,6 +13,7 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [confirmationSent, setConfirmationSent] = useState(false);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,11 +21,12 @@ export default function SignUpPage() {
     setError("");
 
     const supabase = createBrowserClient();
-    const { error: authError } = await supabase.auth.signUp({
+    const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { display_name: name },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
 
@@ -34,8 +36,48 @@ export default function SignUpPage() {
       return;
     }
 
-    router.push("/dashboard");
+    // Check if email confirmation is required
+    // If session exists, user can proceed directly (email confirmation disabled)
+    // If no session but user exists, confirmation email was sent
+    if (data?.session) {
+      router.push("/dashboard");
+    } else if (data?.user) {
+      setConfirmationSent(true);
+    } else {
+      setError("Something went wrong. Please try again.");
+    }
+    
+    setLoading(false);
   };
+
+  // Show confirmation sent message
+  if (confirmationSent) {
+    return (
+      <div className="animate-in text-center">
+        <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-6">
+          <CheckCircle className="w-8 h-8 text-success" />
+        </div>
+        <h1 className="text-2xl font-semibold mb-3">Check your email</h1>
+        <p className="text-text-secondary mb-6 max-w-sm mx-auto">
+          We sent a confirmation link to <span className="font-medium text-text-primary">{email}</span>. 
+          Click the link to activate your account.
+        </p>
+        <div className="space-y-3">
+          <button
+            onClick={() => setConfirmationSent(false)}
+            className="text-sm text-text-secondary hover:text-text-primary underline underline-offset-2"
+          >
+            Use a different email
+          </button>
+        </div>
+        <div className="mt-8 p-4 rounded-lg bg-surface border border-border">
+          <p className="text-xs text-text-muted">
+            Didn&apos;t receive the email? Check your spam folder or wait a few minutes.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="animate-in">

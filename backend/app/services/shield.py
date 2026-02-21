@@ -40,14 +40,20 @@ class ShieldOrchestrator:
             value=req.value, chain=req.chain.value,
         )
 
-        # AI explanation
+        # AI explanation with enhanced agent
         explanation = ""
+        risk_assessment = None
         try:
             explanation = await self.ai.generate_explanation(result, "tx_analysis")
+            # Get AI risk assessment
+            risk_assessment = await self.ai.assess_risk_level(
+                result["risk_score"],
+                result.get("warnings", [])
+            )
         except Exception:
             logger.debug("AI explanation failed for tx analysis")
 
-        return TransactionAnalysisResponse(
+        response = TransactionAnalysisResponse(
             risk_score=result["risk_score"],
             risk_level=result["risk_level"],
             risk_color=result["risk_color"],
@@ -59,6 +65,12 @@ class ShieldOrchestrator:
             destination_info=result.get("destination_info"),
             ai_explanation=explanation,
         )
+        
+        # Attach risk assessment if available
+        if risk_assessment:
+            response.ai_explanation = f"{risk_assessment['explanation']}\n\n{explanation}" if explanation else risk_assessment['explanation']
+        
+        return response
 
     async def analyze_contract(self, req: AnalyzeContractRequest) -> ContractAnalysisResponse:
         result = await self.contract_analyzer.analyze(req.address, req.chain.value)
@@ -150,43 +162,110 @@ class ShieldOrchestrator:
         )
 
     async def chat(self, req: ChatRequest, user_id: str) -> ChatResponse:
+        """
+        AI Agent chat with intelligent intent parsing and tool execution.
+        
+        The agent will:
+        1. Parse the user's intent with confidence scoring
+        2. Execute appropriate tools/analysis
+        3. Generate contextual responses
+        """
+        # Parse intent with confidence
         intent = await self.ai.parse_intent(req.message)
         category = intent.get("category", "general")
         params = intent.get("parameters", {})
+        confidence = intent.get("confidence", 0.5)
+        
+        logger.info(f"Chat intent: {category} (confidence: {confidence:.2f})")
 
+        # Handle analyze_tx intent
         if category == "analyze_tx":
             tx_hash = params.get("tx_hash") or self._extract_hash(req.message)
             if tx_hash:
                 from app.models.schemas import AnalyzeTransactionRequest
                 r = await self.analyze_transaction(AnalyzeTransactionRequest(tx_hash=tx_hash, chain=req.chain))
-                return ChatResponse(intent="analyze_tx", message=r.ai_explanation or "Analysis complete.", data=r.model_dump())
+                return ChatResponse(
+                    intent="analyze_tx",
+                    message=r.ai_explanation or "Transaction analysis complete. See the detailed breakdown above.",
+                    data=r.model_dump(),
+                )
+            return ChatResponse(
+                intent="analyze_tx",
+                message="I'd be happy to analyze a transaction for you. Please provide the transaction hash (0x...).",
+                data=None,
+            )
 
+        # Handle analyze_contract intent
         if category == "analyze_contract":
             address = params.get("address") or self._extract_address(req.message)
             if address:
                 from app.models.schemas import AnalyzeContractRequest
                 r = await self.analyze_contract(AnalyzeContractRequest(address=address, chain=req.chain))
-                return ChatResponse(intent="analyze_contract", message=r.ai_explanation or "Analysis complete.", data=r.model_dump())
-
-        if category == "revoke":
+                return ChatResponse(
+                    intent="analyze_contract",
+                    message=r.ai_explanation or "Contract analysis complete. Review the trust score and findings above.",
+                    data=r.model_dump(),
+                )
             return ChatResponse(
-                intent="revoke",
-                message="To scan approvals and generate revoke transactions, please use the Emergency Revoke feature with your wallet address.",
+                intent="analyze_contract",
+                message="I can analyze any contract for you. Please provide the contract address (0x...).",
                 data=None,
             )
 
+        # Handle revoke intent
+        if category == "revoke":
+            wallet = params.get("wallet_address") or self._extract_address(req.message)
+            if wallet:
+                from app.models.schemas import EmergencyRevokeRequest
+                r = await self.emergency_revoke(EmergencyRevokeRequest(wallet_address=wallet, chain=req.chain))
+                return ChatResponse(
+                    intent="revoke",
+                    message=r.ai_explanation or f"Found {r.total_approvals} approvals, {r.risky_approvals} are risky.",
+                    data=r.model_dump(),
+                )
+            return ChatResponse(
+                intent="revoke",
+                message="I can scan your wallet for risky token approvals. Please provide your wallet address or connect your wallet.",
+                data=None,
+            )
+
+        # Handle receipt intent
         if category == "receipt":
             tx_hash = params.get("tx_hash") or self._extract_hash(req.message)
             if tx_hash:
                 from app.models.schemas import GenerateReceiptRequest
                 r = await self.generate_receipt(GenerateReceiptRequest(tx_hash=tx_hash, chain=req.chain))
-                return ChatResponse(intent="receipt", message=r.ai_summary or "Receipt generated.", data=r.model_dump())
+                return ChatResponse(
+                    intent="receipt",
+                    message=r.ai_summary or "Your transaction receipt is ready!",
+                    data=r.model_dump(),
+                )
+            return ChatResponse(
+                intent="receipt",
+                message="I can generate a shareable receipt for any transaction. Please provide the transaction hash (0x...).",
+                data=None,
+            )
 
-        # General / help
+        # Handle explanation requests
+        if category == "explain":
+            concept = params.get("concept", req.message)
+            explanation = await self.ai.explain_concept(concept)
+            return ChatResponse(
+                intent="explain",
+                message=explanation,
+                data=None,
+            )
+
+        # Handle general / help with agent conversation
+        agent_response = await self.ai.agent_chat(req.message)
+        
+        # If agent suggested tool calls, we could execute them here
+        # For now, return the agent's natural language response
+        
         return ChatResponse(
             intent="general",
-            message="I'm Aya Shield, your AI-powered crypto security guardian. I can analyze transactions, check contracts for risks, generate shareable receipts, and help you revoke risky approvals. What would you like to do?",
-            data=None,
+            message=agent_response.get("response") or self._get_help_message(),
+            data={"suggested_actions": agent_response.get("suggested_actions", [])},
         )
 
     def _extract_hash(self, text: str) -> str | None:
@@ -196,3 +275,16 @@ class ShieldOrchestrator:
     def _extract_address(self, text: str) -> str | None:
         match = re.search(r"0x[a-fA-F0-9]{40}", text)
         return match.group(0) if match else None
+    
+    def _get_help_message(self) -> str:
+        return """I'm Aya Shield, your AI-powered crypto security guardian. Here's what I can help you with:
+
+**🔍 Analyze Transactions** — Paste any transaction hash and I'll break down exactly what it does, flag risks, and tell you if it's safe.
+
+**📋 Check Contracts** — Give me a contract address and I'll assess its trustworthiness, check for honeypots, and identify red flags.
+
+**🧾 Generate Receipts** — Create shareable receipt cards for your transactions with cost breakdowns and AI summaries.
+
+**🚨 Emergency Revoke** — Scan your wallet for dangerous token approvals and help you revoke them before they drain your funds.
+
+What would you like to do?"""

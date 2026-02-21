@@ -26,11 +26,23 @@ class AuthResponse(BaseModel):
     user: dict
 
 
+class SignUpResponse(BaseModel):
+    message: str
+    requires_confirmation: bool
+    user: dict | None = None
+    access_token: str | None = None
+    refresh_token: str | None = None
+
+
+class ResendConfirmationRequest(BaseModel):
+    email: EmailStr
+
+
 class WalletLinkRequest(BaseModel):
     wallet_address: str
 
 
-@router.post("/signup", response_model=AuthResponse)
+@router.post("/signup", response_model=SignUpResponse)
 async def signup(req: SignUpRequest):
     sb = get_supabase()
     try:
@@ -41,18 +53,46 @@ async def signup(req: SignUpRequest):
                 "options": {"data": {"display_name": req.display_name}},
             }
         )
-        if not result.session:
-            raise HTTPException(status_code=400, detail="Signup failed — check email for confirmation.")
-        return AuthResponse(
-            access_token=result.session.access_token,
-            refresh_token=result.session.refresh_token,
-            user={"id": result.user.id, "email": result.user.email},
-        )
+        
+        # Check if email confirmation is required
+        if result.session:
+            # Session exists = email confirmation disabled, user can proceed
+            return SignUpResponse(
+                message="Account created successfully",
+                requires_confirmation=False,
+                user={"id": result.user.id, "email": result.user.email},
+                access_token=result.session.access_token,
+                refresh_token=result.session.refresh_token,
+            )
+        elif result.user:
+            # User exists but no session = email confirmation required
+            return SignUpResponse(
+                message="Confirmation email sent. Please check your inbox.",
+                requires_confirmation=True,
+                user={"id": result.user.id, "email": result.user.email},
+            )
+        else:
+            raise HTTPException(status_code=400, detail="Signup failed.")
+            
     except HTTPException:
         raise
-    except Exception:
+    except Exception as e:
         logger.exception("Signup error")
-        raise HTTPException(status_code=400, detail="Signup failed. Email may already be registered.")
+        error_msg = str(e)
+        if "already registered" in error_msg.lower() or "already exists" in error_msg.lower():
+            raise HTTPException(status_code=400, detail="Email already registered. Please login instead.")
+        raise HTTPException(status_code=400, detail="Signup failed. Please try again.")
+
+
+@router.post("/resend-confirmation")
+async def resend_confirmation(req: ResendConfirmationRequest):
+    sb = get_supabase()
+    try:
+        sb.auth.resend(type="signup", email=req.email)
+        return {"message": "Confirmation email resent. Please check your inbox."}
+    except Exception:
+        logger.exception("Resend confirmation error")
+        raise HTTPException(status_code=400, detail="Failed to resend confirmation email.")
 
 
 @router.post("/login", response_model=AuthResponse)

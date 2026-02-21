@@ -31,6 +31,11 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
+  // Allow callback route for email confirmation (needs to work without auth)
+  if (pathname.startsWith("/auth/callback")) {
+    return supabaseResponse;
+  }
+
   // Redirect unauthenticated users away from dashboard
   if (!user && pathname.startsWith("/dashboard")) {
     const url = request.nextUrl.clone();

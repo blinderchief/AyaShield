@@ -15,85 +15,106 @@ import {
   Code,
   TrendingUp,
   Sparkles,
+  Github,
+  Zap,
 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <Navbar />
 
       {/* ═══ HERO ═══ */}
-      <section className="pt-32 sm:pt-40 pb-20 sm:pb-28 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border text-xs text-text-secondary mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-success" />
-            Protecting transactions across 7 chains
+      <section className="pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-border text-sm text-text-secondary mb-8 animate-fade-in">
+            <Zap className="w-4 h-4 text-accent" />
+            <span>Now supporting 7 EVM chains</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1] text-text-primary mb-6">
-            Protect every transaction
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1] text-text-primary mb-6 animate-slide-up" style={{ letterSpacing: "-0.02em" }}>
+            Know what you&apos;re signing
             <br className="hidden sm:block" />
-            you sign
+            <span className="text-text-secondary">before you sign</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto mb-10 leading-relaxed">
-            AI-powered transaction firewall that simulates, analyzes, and
-            shields your crypto before you sign.
+          <p className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: "100ms" }}>
+            Aya Shield is an AI-powered transaction firewall that simulates, 
+            decodes, and explains every transaction in plain English.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: "200ms" }}>
             <Link
               href="/auth/signup"
-              className="w-full sm:w-auto px-8 py-3 rounded-lg bg-text-primary text-white font-medium hover:bg-primary-light transition-colors flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-text-primary text-white font-medium hover:bg-primary-light transition-all duration-200 flex items-center justify-center gap-2 shadow-card hover:shadow-card-hover"
             >
-              Get Started <ArrowRight className="w-4 h-4" />
+              Get Started Free <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/dashboard"
-              className="w-full sm:w-auto px-8 py-3 rounded-lg border border-border text-text-primary font-medium hover:bg-surface transition-colors text-center"
+              href="https://github.com/blinderchief/AyaShield"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-lg border border-border text-text-primary font-medium hover:bg-surface transition-all duration-200 flex items-center justify-center gap-2"
             >
-              View Demo
+              <Github className="w-4 h-4" /> View on GitHub
             </Link>
           </div>
         </div>
       </section>
 
       {/* ═══ TRUST BAR ═══ */}
-      <section className="py-12 px-4 sm:px-6 border-y border-border">
-        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-text-secondary">
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-success" /> Open Source</span>
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-success" /> No Wallet Access Required</span>
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-success" /> Free to Use</span>
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-success" /> 7 Chains Supported</span>
+      <section className="py-10 px-4 sm:px-6 border-y border-border bg-surface">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-sm">
+            {[
+              { label: "Open Source", icon: <Code className="w-4 h-4" /> },
+              { label: "No API Keys Stored", icon: <Lock className="w-4 h-4" /> },
+              { label: "7 Chains Supported", icon: <Layers className="w-4 h-4" /> },
+              { label: "Gemini 2.0 AI", icon: <Brain className="w-4 h-4" /> },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center gap-2 text-text-secondary">
+                <span className="text-accent">{item.icon}</span>
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ═══ THE PROBLEM ═══ */}
-      <section id="problem" className="py-20 sm:py-28 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
+      {/* ═══ VALUE PROP ═══ */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-medium text-danger tracking-wide uppercase mb-3">The Problem</p>
-            <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
-              $5.6 billion lost to crypto scams yearly
+            <p className="text-sm font-medium text-accent tracking-wide uppercase mb-4">The Problem</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
+              $5.6B lost to crypto scams in 2023
             </h2>
             <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-              Phishing approvals, honeypot tokens, and malicious contracts drain wallets every day.
-              Most users have no way to know what a transaction does before signing.
+              Most users can&apos;t read transaction data. Malicious approvals, honeypot tokens, 
+              and phishing sites exploit this every day.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: <Eye className="w-5 h-5" />, stat: "68%", desc: "of crypto thefts come from malicious token approvals users unknowingly sign" },
-              { icon: <Layers className="w-5 h-5" />, stat: "4 in 10", desc: "new tokens deployed have honeypot characteristics or rug-pull mechanisms" },
-              { icon: <AlertTriangle className="w-5 h-5" />, stat: "$0", desc: "is what most users recover after signing a malicious unlimited approval" },
+              { 
+                stat: "68%", 
+                label: "of crypto thefts",
+                desc: "come from malicious token approvals users unknowingly sign" 
+              },
+              { 
+                stat: "4 in 10", 
+                label: "new tokens",
+                desc: "have honeypot characteristics or hidden rug-pull mechanisms" 
+              },
+              { 
+                stat: "$0", 
+                label: "recovery rate",
+                desc: "for most users after signing a malicious unlimited approval" 
+              },
             ].map((item, i) => (
-              <div key={i} className="border border-border rounded-xl p-8 text-center">
-                <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center text-danger mx-auto mb-4">
-                  {item.icon}
-                </div>
-                <p className="text-3xl font-semibold text-text-primary mb-2">{item.stat}</p>
-                <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+              <div key={i} className="relative p-8 rounded-2xl border border-border bg-white hover:shadow-card transition-shadow">
+                <p className="text-5xl font-semibold text-text-primary mb-1" style={{ letterSpacing: "-0.02em" }}>{item.stat}</p>
+                <p className="text-sm font-medium text-accent uppercase tracking-wide mb-3">{item.label}</p>
+                <p className="text-text-secondary leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -101,37 +122,37 @@ export default function LandingPage() {
       </section>
 
       {/* ═══ HOW IT WORKS ═══ */}
-      <section id="how-it-works" className="py-20 sm:py-28 px-4 sm:px-6 bg-surface">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-surface">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-medium text-text-secondary tracking-wide uppercase mb-3">How It Works</p>
-            <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
-              Three steps to complete security
+            <p className="text-sm font-medium text-accent tracking-wide uppercase mb-4">How It Works</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+              Three steps to complete protection
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12">
             {[
               {
-                step: "01",
-                title: "Connect",
-                description: "Paste any transaction hash, contract address, or wallet address. Works across Ethereum, Polygon, Arbitrum, Base, and more.",
+                num: "01",
+                title: "Paste any address or hash",
+                description: "Transaction hash, contract address, or wallet. Works across Ethereum, Polygon, Arbitrum, Base, and more.",
               },
               {
-                step: "02",
-                title: "AI Analyzes",
-                description: "Aya Shield simulates the transaction, decodes function calls, checks scam databases, and uses Gemini AI to explain everything.",
+                num: "02", 
+                title: "AI analyzes everything",
+                description: "Simulation, function decoding, scam database check, bytecode analysis — all explained in plain English.",
               },
               {
-                step: "03",
-                title: "Stay Protected",
-                description: "Get a clear risk score, plain-English explanation, and actionable advice. Know before you sign.",
+                num: "03",
+                title: "Know before you sign",
+                description: "Get a clear risk score, specific warnings, and actionable advice. Never sign blind again.",
               },
             ].map((item) => (
-              <div key={item.step} className="relative">
-                <div className="text-6xl font-bold text-surface-2 mb-4">{item.step}</div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{item.description}</p>
+              <div key={item.num} className="relative">
+                <div className="text-7xl font-bold text-border mb-6" style={{ letterSpacing: "-0.04em" }}>{item.num}</div>
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <p className="text-text-secondary leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
@@ -139,11 +160,11 @@ export default function LandingPage() {
       </section>
 
       {/* ═══ FEATURES ═══ */}
-      <section id="features" className="py-20 sm:py-28 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-20 sm:py-28 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-medium text-text-secondary tracking-wide uppercase mb-3">Features</p>
-            <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
+            <p className="text-sm font-medium text-accent tracking-wide uppercase mb-4">Features</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
               Complete transaction security
             </h2>
             <p className="text-text-secondary text-lg max-w-2xl mx-auto">
@@ -156,67 +177,67 @@ export default function LandingPage() {
               {
                 icon: <Shield className="w-5 h-5" />,
                 title: "Transaction Guardian",
-                description: "Pre-sign simulation with plain-English AI explanation. See exactly what a transaction will do before you approve it.",
-                tag: "Core",
+                description: "Pre-sign simulation with AI explanation. See exactly what happens before you approve.",
+                badge: "Core",
               },
               {
                 icon: <Search className="w-5 h-5" />,
-                title: "Contract Analyzer",
-                description: "Instant trust scoring for any contract. Honeypot detection, bytecode analysis, and red flag scanning in seconds.",
-                tag: "Analysis",
+                title: "Contract Analyzer", 
+                description: "Instant trust scoring. Honeypot detection, bytecode analysis, and red flag scanning.",
+                badge: "Analysis",
               },
               {
                 icon: <Share2 className="w-5 h-5" />,
                 title: "Smart Receipts",
-                description: "Beautiful receipt cards for every transaction with cost breakdown, event logs, and AI summary.",
-                tag: "Receipts",
+                description: "Beautiful receipt cards for every transaction with cost breakdown and AI summary.",
+                badge: "Share",
               },
               {
                 icon: <AlertTriangle className="w-5 h-5" />,
                 title: "Emergency Revoke",
-                description: "Panic scanner that finds all token approvals, scores risk, and generates batch revoke transactions.",
-                tag: "Emergency",
+                description: "Panic scanner finds all approvals, scores risk, and generates batch revoke transactions.",
+                badge: "Emergency",
               },
             ].map((feature) => (
-              <div key={feature.title} className="border border-border rounded-xl p-8 hover:border-border-light transition-colors">
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-text-secondary">
+              <div key={feature.title} className="group p-8 rounded-2xl border border-border bg-white hover:border-border-light hover:shadow-card transition-all duration-200">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-surface flex items-center justify-center text-text-primary group-hover:bg-accent group-hover:text-white transition-colors">
                     {feature.icon}
                   </div>
-                  <span className="text-xs font-medium text-text-muted uppercase tracking-wider">{feature.tag}</span>
+                  <span className="text-xs font-medium text-text-muted uppercase tracking-wider">{feature.badge}</span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-text-secondary leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ USE CASES ═══ */}
+      {/* ═══ FOR EVERYONE ═══ */}
       <section className="py-20 sm:py-28 px-4 sm:px-6 bg-surface">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-sm font-medium text-text-secondary tracking-wide uppercase mb-3">Use Cases</p>
-            <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
+            <p className="text-sm font-medium text-accent tracking-wide uppercase mb-4">Use Cases</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight" style={{ letterSpacing: "-0.02em" }}>
               Built for everyone in crypto
             </h2>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "DeFi Users", desc: "Verify every swap, stake, and yield farm before signing.", icon: <TrendingUp className="w-5 h-5" /> },
+              { title: "DeFi Traders", desc: "Verify every swap, stake, and yield farm before signing.", icon: <TrendingUp className="w-5 h-5" /> },
               { title: "NFT Collectors", desc: "Check marketplace contracts and minting sites for threats.", icon: <Sparkles className="w-5 h-5" /> },
               { title: "DAO Members", desc: "Analyze governance proposals and multi-sig calls.", icon: <Layers className="w-5 h-5" /> },
-              { title: "New Users", desc: "Every transaction explained in plain English by AI.", icon: <Brain className="w-5 h-5" /> },
+              { title: "Crypto Beginners", desc: "Every transaction explained in plain English by AI.", icon: <Brain className="w-5 h-5" /> },
               { title: "Developers", desc: "Test and verify your contracts before deploying.", icon: <Code className="w-5 h-5" /> },
-              { title: "Researchers", desc: "Rapid triage of suspicious contracts and transactions.", icon: <Eye className="w-5 h-5" /> },
+              { title: "Security Researchers", desc: "Rapid triage of suspicious contracts and transactions.", icon: <Eye className="w-5 h-5" /> },
             ].map((uc) => (
-              <div key={uc.title} className="border border-border rounded-xl p-6 hover:border-border-light transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-white border border-border flex items-center justify-center text-text-secondary mb-4">
+              <div key={uc.title} className="p-6 rounded-xl border border-border bg-white hover:shadow-card transition-shadow">
+                <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-accent mb-4">
                   {uc.icon}
                 </div>
-                <h3 className="font-semibold mb-1">{uc.title}</h3>
+                <h3 className="font-semibold mb-2">{uc.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">{uc.desc}</p>
               </div>
             ))}
@@ -227,20 +248,20 @@ export default function LandingPage() {
       {/* ═══ OPEN SOURCE ═══ */}
       <section className="py-20 sm:py-28 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="w-12 h-12 rounded-xl bg-surface border border-border flex items-center justify-center mx-auto mb-6">
-            <Code className="w-6 h-6 text-text-secondary" />
+          <div className="w-14 h-14 rounded-2xl bg-surface border border-border flex items-center justify-center mx-auto mb-8">
+            <Github className="w-7 h-7 text-text-primary" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
             100% Open Source
           </h2>
-          <p className="text-text-secondary max-w-xl mx-auto mb-8 leading-relaxed">
-            Audit every line of code, self-host on your infrastructure, or
-            contribute to make crypto security better for everyone.
+          <p className="text-text-secondary text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+            Audit every line of code. Self-host on your infrastructure. 
+            Contribute to make crypto security better for everyone.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            {["MIT License", "Self-Hostable", "Community Driven"].map((label) => (
-              <span key={label} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-medium text-text-secondary">
-                <CheckCircle className="w-3.5 h-3.5 text-success" /> {label}
+            {["MIT License", "Self-Hostable", "Community Driven", "No Vendor Lock-in"].map((label) => (
+              <span key={label} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-white text-sm text-text-secondary">
+                <CheckCircle className="w-4 h-4 text-success" /> {label}
               </span>
             ))}
           </div>
@@ -248,26 +269,26 @@ export default function LandingPage() {
       </section>
 
       {/* ═══ CTA ═══ */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-surface">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-4">
+      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-text-primary">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
             Ready to secure your wallet?
           </h2>
-          <p className="text-text-secondary text-lg mb-8">
-            It takes 30 seconds to get started. Free forever.
+          <p className="text-white/70 text-lg mb-10">
+            Takes 30 seconds to get started. Free forever.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/auth/signup"
-              className="w-full sm:w-auto px-8 py-3 rounded-lg bg-text-primary text-white font-medium hover:bg-primary-light transition-colors flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-white text-text-primary font-medium hover:bg-surface transition-all duration-200 flex items-center justify-center gap-2"
             >
-              Get Started <ArrowRight className="w-4 h-4" />
+              Start Protecting Now <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/dashboard/analyze"
-              className="w-full sm:w-auto px-8 py-3 rounded-lg border border-border text-text-primary font-medium hover:bg-white transition-colors text-center"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-lg border border-white/20 text-white font-medium hover:bg-white/10 transition-all duration-200"
             >
-              Try Analysis
+              Try Live Demo
             </Link>
           </div>
         </div>

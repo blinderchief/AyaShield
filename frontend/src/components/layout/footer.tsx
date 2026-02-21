@@ -2,65 +2,66 @@ import Link from "next/link";
 import Image from "next/image";
 
 const product = [
-  { label: "Transaction Guardian", href: "#features" },
-  { label: "Contract Analyzer", href: "#features" },
-  { label: "Smart Receipts", href: "#features" },
-  { label: "Emergency Revoke", href: "#features" },
+  { label: "Transaction Guardian", href: "/dashboard/analyze" },
+  { label: "Contract Analyzer", href: "/dashboard/analyze" },
+  { label: "Smart Receipts", href: "/dashboard/receipts" },
+  { label: "Emergency Revoke", href: "/dashboard/panic" },
 ];
 
-const company = [
-  { label: "About", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Careers", href: "#" },
+const resources = [
+  { label: "Documentation", href: "https://github.com/blinderchief/AyaShield#readme" },
+  { label: "GitHub", href: "https://github.com/blinderchief/AyaShield" },
+  { label: "API Reference", href: "#" },
 ];
 
 const legal = [
   { label: "Privacy Policy", href: "#" },
   { label: "Terms of Service", href: "#" },
+  { label: "MIT License", href: "https://github.com/blinderchief/AyaShield/blob/main/LICENSE" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <footer className="border-t border-border bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-text-primary flex items-center justify-center overflow-hidden">
                 <Image src="/favicon.svg" alt="Aya Shield" width={32} height={32} />
               </div>
-              <span className="font-semibold text-text-primary">Aya Shield</span>
+              <span className="font-semibold text-text-primary tracking-tight">Aya Shield</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed max-w-xs">
-              AI-powered transaction firewall for the multi-chain era.
+              AI-powered transaction firewall for the multi-chain era. Open source and free forever.
             </p>
           </div>
 
           <div>
-            <h4 className="text-sm font-medium text-text-primary mb-4">Product</h4>
-            <ul className="space-y-2.5">
+            <h4 className="text-sm font-semibold text-text-primary mb-4">Product</h4>
+            <ul className="space-y-3">
               {product.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
+                  <Link href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-medium text-text-primary mb-4">Company</h4>
-            <ul className="space-y-2.5">
-              {company.map((l) => (
+            <h4 className="text-sm font-semibold text-text-primary mb-4">Resources</h4>
+            <ul className="space-y-3">
+              {resources.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
+                  <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-medium text-text-primary mb-4">Legal</h4>
-            <ul className="space-y-2.5">
+            <h4 className="text-sm font-semibold text-text-primary mb-4">Legal</h4>
+            <ul className="space-y-3">
               {legal.map((l) => (
                 <li key={l.label}>
                   <a href={l.href} className="text-sm text-text-secondary hover:text-text-primary transition-colors">{l.label}</a>
@@ -70,16 +71,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-text-muted">
-            &copy; {new Date().getFullYear()} Aya Shield. All rights reserved.
+        <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-text-muted">
+            &copy; {new Date().getFullYear()} Aya Shield. Open source under MIT License.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <a
-              href="https://github.com"
+              href="https://github.com/blinderchief/AyaShield"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-muted hover:text-text-secondary transition-colors"
+              className="text-text-muted hover:text-text-primary transition-colors"
               aria-label="GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -87,10 +88,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://twitter.com"
+              href="https://twitter.com/AyaShield"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-muted hover:text-text-secondary transition-colors"
+              className="text-text-muted hover:text-text-primary transition-colors"
               aria-label="Twitter"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
