@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createBrowserClient } from "@/lib/supabase/client";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
@@ -111,5 +111,22 @@ export default function AuthCallbackPage() {
         </>
       )}
     </div>
+  );
+}
+
+// Wrap component in Suspense boundary for useSearchParams()
+export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="animate-in text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-text-secondary mx-auto mb-4" />
+          <h1 className="text-xl font-semibold mb-2">Loading...</h1>
+          <p className="text-text-secondary">Please wait...</p>
+        </div>
+      }
+    >
+      <AuthCallbackContent />
+    </Suspense>
   );
 }
