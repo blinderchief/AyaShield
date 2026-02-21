@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer glow ring -->
+  <circle cx="256" cy="256" r="240" fill="none" stroke="url(#shieldGrad)" stroke-width="2" opacity="0.3"/>
+
+  <!-- Shield body -->
+  <path d="M256 52 L432 132 L432 268 C432 370 356 448 256 476 C156 448 80 370 80 268 L80 132 Z"
+        fill="url(#shieldGrad)" opacity="0.15"/>
+  <path d="M256 52 L432 132 L432 268 C432 370 356 448 256 476 C156 448 80 370 80 268 L80 132 Z"
+        fill="none" stroke="url(#shieldGrad)" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Inner shield highlight -->
+  <path d="M256 88 L400 155 L400 268 C400 352 338 418 256 442 C174 418 112 352 112 268 L112 155 Z"
+        fill="url(#innerGlow)"/>
+
+  <!-- AI Neural network nodes (brain/AI representation) -->
+  <g filter="url(#glow)" opacity="0.9">
+    <!-- Central node -->
+    <circle cx="256" cy="240" r="18" fill="#3B82F6"/>
+    <circle cx="256" cy="240" r="10" fill="#60A5FA"/>
+
+    <!-- Top nodes -->
+    <circle cx="220" cy="176" r="10" fill="#3B82F6"/>
+    <circle cx="292" cy="176" r="10" fill="#06B6D4"/>
+
+    <!-- Middle nodes -->
+    <circle cx="184" cy="240" r="10" fill="#06B6D4"/>
+    <circle cx="328" cy="240" r="10" fill="#3B82F6"/>
+
+    <!-- Bottom nodes -->
+    <circle cx="208" cy="316" r="10" fill="#3B82F6"/>
+    <circle cx="304" cy="316" r="10" fill="#06B6D4"/>
+
+    <!-- Bottom center -->
+    <circle cx="256" cy="356" r="10" fill="#22D3EE"/>
+
+    <!-- Connections -->
+    <g stroke="url(#shieldGrad)" stroke-width="2" opacity="0.6">
+      <!-- Central to top -->
+      <line x1="256" y1="240" x2="220" y2="176"/>
+      <line x1="256" y1="240" x2="292" y2="176"/>
+      <!-- Central to middle -->
+      <line x1="256" y1="240" x2="184" y2="240"/>
+      <line x1="256" y1="240" x2="328" y2="240"/>
+      <!-- Central to bottom -->
+      <line x1="256" y1="240" x2="208" y2="316"/>
+      <line x1="256" y1="240" x2="304" y2="316"/>
+      <line x1="256" y1="240" x2="256" y2="356"/>
+      <!-- Cross connections -->
+      <line x1="220" y1="176" x2="184" y2="240"/>
+      <line x1="292" y1="176" x2="328" y2="240"/>
+      <line x1="184" y1="240" x2="208" y2="316"/>
+      <line x1="328" y1="240" x2="304" y2="316"/>
+      <line x1="208" y1="316" x2="256" y2="356"/>
+      <line x1="304" y1="316" x2="256" y2="356"/>
+      <!-- Top cross -->
+      <line x1="220" y1="176" x2="292" y2="176"/>
+      <!-- Bottom cross -->
+      <line x1="208" y1="316" x2="304" y2="316"/>
+    </g>
+  </g>
+
+  <!-- Lock keyhole at center of neural network -->
+  <g transform="translate(256,240)">
+    <circle cx="0" cy="-3" r="5" fill="#F8FAFC"/>
+    <rect x="-3" y="0" width="6" height="8" rx="1.5" fill="#F8FAFC"/>
+  </g>
+</svg>

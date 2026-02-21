@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050A14"/>
+      <stop offset="50%" stop-color="#0C1222"/>
+      <stop offset="100%" stop-color="#050A14"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="brandV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="glowFill" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.02"/>
+    </linearGradient>
+    <radialGradient id="radGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.04" stroke="#3B82F6" stroke-width="0.5">
+    <line x1="0" y1="0" x2="0" y2="630"/><line x1="60" y1="0" x2="60" y2="630"/>
+    <line x1="120" y1="0" x2="120" y2="630"/><line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/><line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/><line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/><line x1="540" y1="0" x2="540" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/><line x1="660" y1="0" x2="660" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/><line x1="780" y1="0" x2="780" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/><line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/><line x1="1020" y1="0" x2="1020" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/><line x1="1140" y1="0" x2="1140" y2="630"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/><line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/><line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/><line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/><line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/><line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+  </g>
+
+  <!-- Large center glow -->
+  <ellipse cx="600" cy="315" rx="500" ry="300" fill="url(#radGlow)"/>
+
+  <!-- Decorative floating particles -->
+  <g opacity="0.3">
+    <circle cx="120" cy="140" r="2" fill="#3B82F6"/><circle cx="180" cy="470" r="1.5" fill="#06B6D4"/>
+    <circle cx="350" cy="90" r="2.5" fill="#60A5FA"/><circle cx="980" cy="120" r="2" fill="#06B6D4"/>
+    <circle cx="1050" cy="380" r="1.5" fill="#3B82F6"/><circle cx="1100" cy="520" r="2" fill="#22D3EE"/>
+    <circle cx="90" cy="350" r="1.5" fill="#22D3EE"/><circle cx="450" cy="540" r="2" fill="#3B82F6"/>
+    <circle cx="800" cy="80" r="2" fill="#60A5FA"/><circle cx="700" cy="560" r="1.5" fill="#06B6D4"/>
+  </g>
+
+  <!-- Left content area -->
+  <g transform="translate(80, 150)">
+    <!-- Logo mark -->
+    <g transform="translate(0, 0)">
+      <rect width="52" height="52" rx="14" fill="url(#brand)"/>
+      <!-- Mini shield inside -->
+      <path d="M26 12 L40 18 L40 28 C40 35 34 39 26 42 C18 39 12 35 12 28 L12 18 Z"
+            fill="none" stroke="#F8FAFC" stroke-width="1.8" stroke-linejoin="round" opacity="0.9"/>
+      <circle cx="26" cy="26" r="4" fill="#F8FAFC" opacity="0.9"/>
+      <g stroke="#F8FAFC" stroke-width="1" opacity="0.5">
+        <line x1="26" y1="26" x2="20" y2="20"/><line x1="26" y1="26" x2="32" y2="20"/>
+        <line x1="26" y1="26" x2="20" y2="32"/><line x1="26" y1="26" x2="32" y2="32"/>
+      </g>
+    </g>
+
+    <!-- Brand name -->
+    <text x="66" y="24" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="28" fill="#F8FAFC" letter-spacing="-0.5">
+      Aya Shield
+    </text>
+    <text x="66" y="44" font-family="Inter, system-ui, sans-serif" font-weight="400" font-size="13" fill="#94A3B8" letter-spacing="3">
+      TRANSACTION FIREWALL
+    </text>
+
+    <!-- Main headline -->
+    <text y="120" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="52" fill="#F8FAFC" letter-spacing="-1.5">
+      AI-Powered Security
+    </text>
+    <text y="180" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="52" letter-spacing="-1.5">
+      <tspan fill="url(#brand)">for Every Chain</tspan>
+    </text>
+
+    <!-- Description -->
+    <text y="230" font-family="Inter, system-ui, sans-serif" font-weight="400" font-size="18" fill="#94A3B8">
+      Simulate. Analyze. Shield. Before you sign.
+    </text>
+
+    <!-- Feature pills -->
+    <g transform="translate(0, 270)">
+      <rect width="160" height="36" rx="18" fill="#3B82F6" opacity="0.12" stroke="#3B82F6" stroke-opacity="0.3" stroke-width="1"/>
+      <text x="80" y="23" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="13" fill="#60A5FA" text-anchor="middle">Transaction Guard</text>
+
+      <rect x="172" width="150" height="36" rx="18" fill="#06B6D4" opacity="0.12" stroke="#06B6D4" stroke-opacity="0.3" stroke-width="1"/>
+      <text x="247" y="23" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="13" fill="#22D3EE" text-anchor="middle">Contract Analyzer</text>
+
+      <rect x="334" width="140" height="36" rx="18" fill="#10B981" opacity="0.12" stroke="#10B981" stroke-opacity="0.3" stroke-width="1"/>
+      <text x="404" y="23" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="13" fill="#10B981" text-anchor="middle">Smart Receipts</text>
+    </g>
+  </g>
+
+  <!-- Right side: Shield visualization -->
+  <g transform="translate(820, 80)">
+    <!-- Outer ring -->
+    <ellipse cx="180" cy="230" rx="190" ry="230" fill="none" stroke="url(#brand)" stroke-width="1" opacity="0.15"/>
+    <ellipse cx="180" cy="230" rx="150" ry="190" fill="none" stroke="url(#brand)" stroke-width="1" opacity="0.1"/>
+
+    <!-- Shield -->
+    <g filter="url(#glow)">
+      <path d="M180 50 L310 110 L310 230 C310 320 255 370 180 390 C105 370 50 320 50 230 L50 110 Z"
+            fill="url(#brand)" opacity="0.12"/>
+      <path d="M180 50 L310 110 L310 230 C310 320 255 370 180 390 C105 370 50 320 50 230 L50 110 Z"
+            fill="none" stroke="url(#brand)" stroke-width="2.5" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Inner glow -->
+    <path d="M180 80 L290 130 L290 230 C290 306 242 348 180 365 C118 348 70 306 70 230 L70 130 Z"
+          fill="url(#glowFill)"/>
+
+    <!-- AI network inside shield -->
+    <g filter="url(#glow)">
+      <!-- Center node -->
+      <circle cx="180" cy="200" r="16" fill="#3B82F6"/>
+      <circle cx="180" cy="200" r="9" fill="#60A5FA"/>
+
+      <!-- Network nodes -->
+      <circle cx="140" cy="145" r="8" fill="#3B82F6"/><circle cx="220" cy="145" r="8" fill="#06B6D4"/>
+      <circle cx="110" cy="210" r="8" fill="#06B6D4"/><circle cx="250" cy="210" r="8" fill="#3B82F6"/>
+      <circle cx="135" cy="275" r="8" fill="#3B82F6"/><circle cx="225" cy="275" r="8" fill="#06B6D4"/>
+      <circle cx="180" cy="320" r="8" fill="#22D3EE"/>
+
+      <!-- Connections -->
+      <g stroke="url(#brand)" stroke-width="1.5" opacity="0.5">
+        <line x1="180" y1="200" x2="140" y2="145"/><line x1="180" y1="200" x2="220" y2="145"/>
+        <line x1="180" y1="200" x2="110" y2="210"/><line x1="180" y1="200" x2="250" y2="210"/>
+        <line x1="180" y1="200" x2="135" y2="275"/><line x1="180" y1="200" x2="225" y2="275"/>
+        <line x1="180" y1="200" x2="180" y2="320"/>
+        <line x1="140" y1="145" x2="220" y2="145"/><line x1="140" y1="145" x2="110" y2="210"/>
+        <line x1="220" y1="145" x2="250" y2="210"/><line x1="110" y1="210" x2="135" y2="275"/>
+        <line x1="250" y1="210" x2="225" y2="275"/><line x1="135" y1="275" x2="180" y2="320"/>
+        <line x1="225" y1="275" x2="180" y2="320"/><line x1="135" y1="275" x2="225" y2="275"/>
+      </g>
+    </g>
+
+    <!-- Lock symbol at center -->
+    <g transform="translate(180,197)">
+      <circle cx="0" cy="-2" r="4" fill="#F8FAFC" opacity="0.9"/>
+      <rect x="-2.5" y="1" width="5" height="6" rx="1.2" fill="#F8FAFC" opacity="0.9"/>
+    </g>
+
+    <!-- Chain badges around shield -->
+    <g font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="10">
+      <rect x="60" y="370" width="60" height="24" rx="12" fill="#627EEA" opacity="0.2" stroke="#627EEA" stroke-opacity="0.4" stroke-width="0.8"/>
+      <text x="90" y="386" fill="#627EEA" text-anchor="middle">ETH</text>
+
+      <rect x="130" y="370" width="60" height="24" rx="12" fill="#8247E5" opacity="0.2" stroke="#8247E5" stroke-opacity="0.4" stroke-width="0.8"/>
+      <text x="160" y="386" fill="#8247E5" text-anchor="middle">POLY</text>
+
+      <rect x="200" y="370" width="60" height="24" rx="12" fill="#12AAFF" opacity="0.2" stroke="#12AAFF" stroke-opacity="0.4" stroke-width="0.8"/>
+      <text x="230" y="386" fill="#12AAFF" text-anchor="middle">ARB</text>
+
+      <rect x="270" y="370" width="60" height="24" rx="12" fill="#0052FF" opacity="0.2" stroke="#0052FF" stroke-opacity="0.4" stroke-width="0.8"/>
+      <text x="300" y="386" fill="#0052FF" text-anchor="middle">BASE</text>
+    </g>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect y="600" width="1200" height="30" fill="#0C1222"/>
+  <text x="600" y="620" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="12" fill="#64748B" text-anchor="middle" letter-spacing="2">
+    OPEN SOURCE  ·  MULTI-CHAIN  ·  AI POWERED  ·  REAL-TIME PROTECTION
+  </text>
+
+  <!-- Border -->
+  <rect x="1" y="1" width="1198" height="628" rx="8" fill="none" stroke="url(#brand)" stroke-width="1" opacity="0.2"/>
+</svg>

@@ -1,0 +1,24 @@
+{
+  "name": "aya-shield",
+  "version": "2.0.0",
+  "description": "Aya Shield - AI-Powered Transaction Firewall & Smart Receipt System for Aya Wallet",
+  "private": true,
+  "scripts": {
+    "dev:backend": "cd backend && uv run uvicorn app.main:app --reload --port 8000",
+    "dev:frontend": "cd frontend && npm run dev",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  },
+  "keywords": [
+    "blockchain",
+    "security",
+    "AI",
+    "wallet",
+    "transaction-simulation",
+    "scam-detection",
+    "Ethereum",
+    "DeFi"
+  ],
+  "author": "Suyash Kumar Singh",
+  "license": "MIT"
+}
