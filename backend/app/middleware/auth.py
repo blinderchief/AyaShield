@@ -2,15 +2,10 @@ import logging
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, Request, status
-from jose import JWTError, jwt
 
-from app.config import get_settings
+from app.db.supabase import get_supabase
 
 logger = logging.getLogger(__name__)
-settings = get_settings()
-
-SUPABASE_JWT_SECRET = settings.supabase_jwt_secret or settings.supabase_anon_key
-ALGORITHM = "HS256"
 
 
 def _extract_token(request: Request) -> str:
@@ -25,27 +20,25 @@ def _extract_token(request: Request) -> str:
 
 
 async def get_current_user(request: Request) -> dict:
-    """Verify Supabase JWT and return user payload."""
+    """Verify Supabase JWT by calling Supabase auth.get_user()."""
     token = _extract_token(request)
     try:
-        payload = jwt.decode(
-            token,
-            SUPABASE_JWT_SECRET,
-            algorithms=[ALGORITHM],
-            audience="authenticated",
-        )
-        user_id = payload.get("sub")
-        if not user_id:
+        sb = get_supabase()
+        user_resp = sb.auth.get_user(token)
+        user = user_resp.user
+        if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid token: missing subject",
+                detail="Invalid token: no user found",
             )
         return {
-            "id": user_id,
-            "email": payload.get("email"),
-            "role": payload.get("role", "authenticated"),
+            "id": user.id,
+            "email": user.email,
+            "role": user.role or "authenticated",
         }
-    except JWTError as e:
+    except HTTPException:
+        raise
+    except Exception as e:
         logger.warning("JWT verification failed: %s", e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
