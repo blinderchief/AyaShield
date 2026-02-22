@@ -40,19 +40,20 @@ app = FastAPI(
 )
 
 # --- Middleware ---
-app.state.limiter = limiter
-app.add_middleware(SlowAPIMiddleware)
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-
+# CORS must be outermost (added last) so it handles OPTIONS before anything else
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"],
-    max_age=600,
+    max_age=86400,
 )
+
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # --- Routes ---
 app.include_router(health.router, prefix=settings.api_v1_prefix)
