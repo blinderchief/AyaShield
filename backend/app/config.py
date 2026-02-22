@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     app_env: str = "development"
     debug: bool = False
     api_v1_prefix: str = "/api/v1"
-    allowed_origins: str = "http://localhost:3000"
+    allowed_origins: str = "http://localhost:3000,https://aya-shield.vercel.app"
 
     # Supabase
     supabase_url: str
